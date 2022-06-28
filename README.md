@@ -7,6 +7,11 @@ Através dos comandos:
  - make
  - make run
  - make clean
+Através dos comandos:
+ - ./vm addresses.txt fifo fifo
+ - ./vm addresses.txt fifo lru
+ - ./vm addresses.txt lru fifo
+ - ./vm addresses.txt lru lru
 
 ### Código:
 Incluindo bibliotecas e declarando funções e variáveis globais:
