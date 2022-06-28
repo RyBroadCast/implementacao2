@@ -10,7 +10,7 @@ Através dos comandos:
 
 ### Código:
 Incluindo bibliotecas e declarando funções e variáveis globais:
-c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,10 +49,10 @@ int main(int argc, char *argv[]) {
       fprintf(fp, "File not found!");
       fclose(fp);
   }
-
+```
 
 O else, le os arquivos, traduz o page_num e o offset, usa as threads para buscar na TLB:
-c
+```c
 else {
     while ((fscanf(fp, "%d", &archive)) != EOF){
       is_in_tlb = 0;
@@ -73,10 +73,10 @@ else {
       for (int i = 0; i < TLB_size; i++){
 		    pthread_join(threads[i], NULL);
 	    }
+```
 
-
-Se não estiver na TLB, procura na pagetable, e se não estiver na pagetable, procura no babcking_store.bin:
-c
+Se não estiver na TLB, procura na pagetable, e se não estiver na pagetable, procura no babcking_store.bin, faz o FIFO e o lru das páginas e da TLB, faz os calculos dos valores e dos endereços, e printa os resultados:
+```c
 if (is_in_tlb == 0){  // se não tiver na tlb
         
         // PAGETABLE
@@ -94,25 +94,6 @@ if (is_in_tlb == 0){  // se não tiver na tlb
         
         page_fault++;
 
-        fbin = fopen("BACKING_STORE.bin","rb");
-
-        fseek(fbin, page_num * 256, SEEK_SET);
-        fread(bin_buffer, sizeof(signed char), 256, fbin);
-
-        for (int i = 0; i < 256; i++){
-          physical_mem[global_index][i] = bin_buffer[i]; // coloca as instruções na memória física
-        }
-
-        frame = global_index;   // pega o frame
-        page_table[global_index] = page_num; // atualiza a pagetable
-
-        fclose(fbin);
-
-        global_index++;
-
-
-Faz o FIFO e o lru das páginas e da TLB, faz os calculos dos valores e dos endereços, e printa os resultados
-c
         if (strcmp(argv[2],"lru") == 0){
           int biggest = 0, b_index = 0;
           for (int i = 0; i < 128; i++) {
@@ -148,6 +129,8 @@ c
           LRU_TLB();  // LRU TLB
         }
       }
+      
+      page_table[frame] = page_num;
 
       physical_ad = frame * 256 + offset;
 
@@ -170,10 +153,10 @@ c
       fprintf(fc, "TLB Hits = %d\n",tlb_hit);
       fprintf(fc, "TLB Hit Rate = %.3f\n",th_rate);
     }
-
+```
 
 Funções atualizaTLB() e checkTLB(int i)
-c
+```c
 void atualizaTLB(){
   
     TLB[i_tlb][0] = page_num;
@@ -194,9 +177,9 @@ void checkTLB(int i){
           tlb_hit++;
         }
 }
-
+```
 Função para ler o backingstore.bin
-c
+```c
 void backingstorebin(){
     fbin = fopen("BACKING_STORE.bin","rb");
 
@@ -209,10 +192,10 @@ void backingstorebin(){
   
     fclose(fbin);
 }
-c
+```
 
 Funções para lru
-c
+```c
 void LRU_pagetable() {
 
     for (int i = 0; i < 128; i++) {    
@@ -249,4 +232,4 @@ void LRU_TLB() {
     }
  
 }
-c
+```
