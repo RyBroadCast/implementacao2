@@ -52,15 +52,33 @@ int main(int argc, char *argv[]) {
   fp = fopen(argv[1], "r");
   fc = fopen("correct.txt", "w");
 
+
+```
+Tratamentos de erro:
+```c
   if (!fp) {
-      fprintf(fp, "File not found!");
-      fclose(fp);
+      	printf("File not found!\n");
+      	return 0;
+  }
+  
+  if (argv[4] != NULL) {
+	printf("Only 4 arguments allowed!\n");
+	return 0;
+  }
+  
+  if (strcmp(argv[2],"fifo") != 0 && strcmp(argv[2],"lru") != 0) {
+  	printf("Only lru or fifo!\n");
+  	return 0;
+  }
+  
+  if (strcmp(argv[3],"fifo") != 0 && strcmp(argv[3],"lru") != 0) {
+  	printf("Only lru or fifo!\n");
+  	return 0;
   }
 ```
 
-O else, le os arquivos, traduz o page_num e o offset, usa as threads para buscar na TLB:
+Le os arquivos, traduz o page_num e o offset, usa as threads para buscar na TLB:
 ```c
-else {
     while ((fscanf(fp, "%d", &archive)) != EOF){
       is_in_tlb = 0;
       is_in_pagetable = 0;
