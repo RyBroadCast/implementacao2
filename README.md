@@ -1,12 +1,13 @@
 # Implementação 2
 
-A ideia da implementação era criar um simulador de um manager de memória virtual, como na atividade do livro Operating System Concepts, Silberschatz, A. et al, 10a edição. A atividade consiste em implementar algumas soluções de desempenho para buscar páginas na memória, como uma TLB e uma Page Table. OBS: o LRU não foi implementado, portanto só irá funcionar caso o comando seja "./vm address.txt fifo fifo".
+A ideia da implementação era criar um simulador de um manager de memória virtual, como na atividade do livro Operating System Concepts, Silberschatz, A. et al, 10a edição. A atividade consiste em implementar algumas soluções de desempenho para buscar páginas na memória, como uma TLB e uma Page Table.
 
 ### Como executar:
 Através dos comandos:
  - make
  - make run
  - make clean
+ 
 ### Argumentos de linha de comando
 Utilize as entradas:
  - ./vm addresses.txt fifo fifo
