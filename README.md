@@ -7,7 +7,8 @@ Através dos comandos:
  - make
  - make run
  - make clean
-Através dos comandos:
+### Argumentos de linha de comando
+Utilize as entradas:
  - ./vm addresses.txt fifo fifo
  - ./vm addresses.txt fifo lru
  - ./vm addresses.txt lru fifo
